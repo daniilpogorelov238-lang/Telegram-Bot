@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Поддержка и вопросы</title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #0b1a2e, #1a2f44);
+            padding: 1.5rem;
+        }
+        .card {
+            max-width: 520px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-radius: 2.5rem;
+            padding: 2.2rem 2rem 2.5rem;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            transition: 0.25s ease;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .card:hover {
+            box-shadow: 0 40px 70px rgba(0, 0, 0, 0.8);
+        }
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.3rem;
+        }
+        .subhead {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            border-left: 3px solid #2a8cff;
+            padding-left: 0.8rem;
+            font-weight: 400;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.3px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 1.8rem;
+            font-size: 1rem;
+            color: #f0f4ff;
+            outline: none;
+            transition: 0.2s;
+            backdrop-filter: blur(4px);
+        }
+        input:focus, textarea:focus {
+            border-color: #2a8cff;
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 0 4px rgba(42, 140, 255, 0.15);
+        }
+        input::placeholder, textarea::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 300;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+            border-radius: 1.8rem;
+            line-height: 1.5;
+        }
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            background: #2a8cff;
+            border: none;
+            border-radius: 3rem;
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 8px 24px rgba(42, 140, 255, 0.25);
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 0.5rem;
+        }
+        .btn:hover {
+            background: #1f7ae6;
+            transform: scale(1.01);
+            box-shadow: 0 12px 32px rgba(42, 140, 255, 0.4);
+        }
+        .btn:active {
+            transform: scale(0.97);
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            pointer-events: none;
+            filter: grayscale(0.5);
+        }
+        .status {
+            margin-top: 1.5rem;
+            padding: 0.8rem 1.2rem;
+            border-radius: 3rem;
+            font-size: 0.95rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.7);
+            min-height: 3.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+            backdrop-filter: blur(4px);
+        }
+        .status.success {
+            background: rgba(46, 213, 115, 0.15);
+            border-color: #2ed573;
+            color: #7bffb0;
+        }
+        .status.error {
+            background: rgba(255, 71, 87, 0.15);
+            border-color: #ff4757;
+            color: #ff8a94;
+        }
+        .status.loading {
+            background: rgba(42, 140, 255, 0.1);
+            border-color: #2a8cff;
+            color: #8bbaff;
+        }
+        .footer-note {
+            margin-top: 1.2rem;
+            font-size: 0.8rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.2);
+            letter-spacing: 0.5px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding-top: 1.2rem;
+        }
+        .tg-icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>') no-repeat center;
+            background-size: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+        @media (max-width: 480px) {
+            .card { padding: 1.8rem 1.2rem; }
+            h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>
+        <span class="tg-icon" style="display:inline-block; vertical-align:middle; margin-right: 6px;"></span>
+        Личное сообщение
+    </h1>
+    <div class="subhead">Отправьте мне сообщение в Telegram · @ваш_юзернейм</div>
+
+    <form id="tgForm">
+        <div class="form-group">
+            <label for="userName">Ваше имя (опционально)</label>
+            <input type="text" id="userName" placeholder="Алексей или аноним" maxlength="60" />
+        </div>
+
+        <div class="form-group">
+            <label for="messageText">Сообщение для меня</label>
+            <textarea id="messageText" placeholder="Напишите что-то важное..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn" id="sendBtn">
+            <span>✉</span> Отправить в Telegram
+        </button>
+    </form>
+
+    <div id="statusMessage" class="status">💬 Заполните поле и нажмите отправить</div>
+    <div class="footer-note">сообщение придёт в личный кабинет</div>
+</div>
+
+<script>
+    (function() {
+        const form = document.getElementById('tgForm');
+        const nameInput = document.getElementById('userName');
+        const textInput = document.getElementById('messageText');
+        const statusDiv = document.getElementById('statusMessage');
+        const sendBtn = document.getElementById('sendBtn');
+
+        // ⚠️ ЗАМЕНИТЕ ЭТОТ ТОКЕН И ID НА СВОИ ⚠️
+        const BOT_TOKEN = '8601852213:AAGRqHQfpqB-nFFg151t8yXai_qGHoaKLJM';   // токен бота
+        const CHAT_ID = 8666634325;        // ваш Telegram ID (можно узнать у @userinfobot)
+
+        // Функция для отображения статуса
+        function setStatus(text, type = '') {
+            statusDiv.textContent = text;
+            statusDiv.className = 'status';
+            if (type) statusDiv.classList.add(type);
+        }
+
+        // Валидация на клиенте
+        function validateForm() {
+            const msg = textInput.value.trim();
+            if (msg.length === 0) {
+                setStatus('❌ Напишите текст сообщения', 'error');
+                textInput.focus();
+                return false;
+            }
+            if (msg.length > 4000) {
+                setStatus('⚠️ Слишком длинное сообщение (макс. 4000 символов)', 'error');
+                return false;
+            }
+            return true;
+        }
+
+        // Отправка через Telegram Bot API
+        async function sendToTelegram(name, message) {
+            // Собираем текст
+            let fullText = `📩 *Новое сообщение с сайта*`;
+            if (name && name.trim().length > 0) {
+                fullText += `\n👤 *Имя:* ${name.trim()}`;
+            } else {
+                fullText += `\n👤 *Аноним*`;
+            }
+            fullText += `\n\n📝 *Текст:*\n${message.trim()}`;
+            fullText += `\n\n🕒 ${new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })}`;
+
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+            const payload = {
+                chat_id: CHAT_ID,
+                text: fullText,
+                parse_mode: 'Markdown',
+                disable_web_page_preview: true,
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || !data.ok) {
+                    // Если ошибка от Telegram
+                    const errMsg = data.description || 'Неизвестная ошибка API';
+                    throw new Error(`Telegram API: ${errMsg}`);
+                }
+
+                return { success: true, data };
+            } catch (error) {
+                console.error('Ошибка отправки:', error);
+                return { success: false, error: error.message };
+            }
+        }
+
+        // Обработчик отправки формы
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // 1. Валидация
+            if (!validateForm()) return;
+
+            // 2. Блокируем кнопку, показываем статус загрузки
+            sendBtn.disabled = true;
+            setStatus('⏳ Отправка в Telegram...', 'loading');
+
+            const name = nameInput.value.trim();
+            const message = textInput.value.trim();
+
+            // 3. Отправка
+            const result = await sendToTelegram(name, message);
+
+            // 4. Обработка результата
+            if (result.success) {
+                setStatus('✅ Сообщение успешно доставлено! Я отвечу в Telegram.', 'success');
+                form.reset(); // очищаем поля
+                // Дополнительно можно скрыть статус через время, но оставим
+            } else {
+                let errorText = result.error || 'Ошибка соединения';
+                // Если ошибка связана с токеном или ID — покажем понятнее
+                if (errorText.includes('401') || errorText.includes('Unauthorized')) {
+                    errorText = 'Неверный токен бота. Проверьте BOT_TOKEN.';
+                } else if (errorText.includes('400') || errorText.includes('chat not found')) {
+                    errorText = 'Неверный CHAT_ID. Убедитесь, что вы указали правильный ID.';
+                }
+                setStatus(`❌ Ошибка: ${errorText}`, 'error');
+            }
+
+            // 5. Разблокируем кнопку
+            sendBtn.disabled = false;
+        });
+
+        // Сброс статуса при вводе в поле (для удобства)
+        textInput.addEventListener('input', () => {
+            if (statusDiv.classList.contains('error') || statusDiv.classList.contains('success')) {
+                setStatus('✏️ Введите сообщение...', '');
+            }
+        });
+        nameInput.addEventListener('input', () => {
+            if (statusDiv.classList.contains('error') || statusDiv.classList.contains('success')) {
+                setStatus('✏️ Введите сообщение...', '');
+            }
+        });
+
+        // Дополнительно: если поле пустое при отправке — подсветка
+        textInput.addEventListener('blur', () => {
+            if (textInput.value.trim().length === 0 && textInput === document.activeElement) {
+                // ничего не делаем, просто напоминание
+            }
+        });
+
+        // Стартовое сообщение (если нужно)
+        setStatus('💬 Напишите сообщение и нажмите отправить', '');
+    })();
+</script>
+
+</body>
+</html>
