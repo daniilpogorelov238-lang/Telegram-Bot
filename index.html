@@ -2,348 +2,164 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Поддержка и вопросы</title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>Отправить сообщение</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-        }
-        body {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(145deg, #0b1a2e, #1a2f44);
-            padding: 1.5rem;
-        }
-        .card {
-            max-width: 520px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border-radius: 2.5rem;
-            padding: 2.2rem 2rem 2.5rem;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
-            transition: 0.25s ease;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .card:hover {
-            box-shadow: 0 40px 70px rgba(0, 0, 0, 0.8);
-        }
-        h1 {
-            font-size: 1.9rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.3rem;
-        }
-        .subhead {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-            border-left: 3px solid #2a8cff;
-            padding-left: 0.8rem;
-            font-weight: 400;
-        }
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        label {
-            display: block;
-            font-weight: 500;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.75);
-            margin-bottom: 0.4rem;
-            letter-spacing: 0.3px;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 0.9rem 1.2rem;
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 1.8rem;
-            font-size: 1rem;
-            color: #f0f4ff;
-            outline: none;
-            transition: 0.2s;
-            backdrop-filter: blur(4px);
-        }
-        input:focus, textarea:focus {
-            border-color: #2a8cff;
-            background: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 0 0 4px rgba(42, 140, 255, 0.15);
-        }
-        input::placeholder, textarea::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-            font-weight: 300;
-        }
-        textarea {
-            resize: vertical;
-            min-height: 120px;
-            border-radius: 1.8rem;
-            line-height: 1.5;
-        }
-        .btn {
-            width: 100%;
-            padding: 1rem;
-            background: #2a8cff;
-            border: none;
-            border-radius: 3rem;
-            font-weight: 600;
-            font-size: 1.15rem;
-            color: white;
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 8px 24px rgba(42, 140, 255, 0.25);
-            letter-spacing: 0.3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 0.5rem;
-        }
-        .btn:hover {
-            background: #1f7ae6;
-            transform: scale(1.01);
-            box-shadow: 0 12px 32px rgba(42, 140, 255, 0.4);
-        }
-        .btn:active {
-            transform: scale(0.97);
-        }
-        .btn:disabled {
-            opacity: 0.6;
-            pointer-events: none;
-            filter: grayscale(0.5);
-        }
-        .status {
-            margin-top: 1.5rem;
-            padding: 0.8rem 1.2rem;
-            border-radius: 3rem;
-            font-size: 0.95rem;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            color: rgba(255, 255, 255, 0.7);
-            min-height: 3.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.2s;
-            backdrop-filter: blur(4px);
-        }
-        .status.success {
-            background: rgba(46, 213, 115, 0.15);
-            border-color: #2ed573;
-            color: #7bffb0;
-        }
-        .status.error {
-            background: rgba(255, 71, 87, 0.15);
-            border-color: #ff4757;
-            color: #ff8a94;
-        }
-        .status.loading {
-            background: rgba(42, 140, 255, 0.1);
-            border-color: #2a8cff;
-            color: #8bbaff;
-        }
-        .footer-note {
-            margin-top: 1.2rem;
-            font-size: 0.8rem;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.2);
-            letter-spacing: 0.5px;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
-            padding-top: 1.2rem;
-        }
-        .tg-icon {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>') no-repeat center;
-            background-size: contain;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-        }
-        @media (max-width: 480px) {
-            .card { padding: 1.8rem 1.2rem; }
-            h1 { font-size: 1.6rem; }
-        }
+        *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',sans-serif}
+        body{min-height:100vh;display:flex;background:#0b1a2e;overflow-x:hidden}
+        .sidebar{position:fixed;top:0;left:0;width:280px;height:100%;background:rgba(8,20,38,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-right:1px solid rgba(255,255,255,0.06);transform:translateX(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1);padding:2rem 1.5rem;z-index:1000;overflow-y:auto;box-shadow:4px 0 30px rgba(0,0,0,0.5)}
+        .sidebar.open{transform:translateX(0)}
+        .sidebar-header{display:flex;align-items:center;gap:.8rem;margin-bottom:2.5rem;padding-bottom:1.2rem;border-bottom:1px solid rgba(255,255,255,0.06)}
+        .sidebar-header h2{color:#fff;font-size:1.2rem;font-weight:600}
+        .sidebar-header .close-btn{margin-left:auto;background:0;border:0;color:rgba(255,255,255,0.4);font-size:1.5rem;cursor:pointer;transition:.2s;padding:.3rem;line-height:1}
+        .sidebar-header .close-btn:hover{color:#fff;transform:rotate(90deg)}
+        .menu-item{display:flex;align-items:center;gap:1rem;padding:.9rem 1rem;border-radius:1.2rem;color:rgba(255,255,255,0.6);transition:.25s;cursor:pointer;margin-bottom:.3rem;border:1px solid transparent}
+        .menu-item:hover{background:rgba(42,140,255,0.08);color:#fff;border-color:rgba(42,140,255,0.15)}
+        .menu-item.active{background:rgba(42,140,255,0.15);color:#fff;border-color:#2a8cff;box-shadow:0 0 20px rgba(42,140,255,0.05)}
+        .menu-item .icon{font-size:1.3rem;width:2rem;text-align:center}
+        .menu-item .label{font-size:.95rem;font-weight:500}
+        .main-content{flex:1;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem}
+        .card{max-width:620px;width:100%;background:rgba(255,255,255,0.06);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-radius:2.5rem;padding:2.2rem 2rem 2.5rem;box-shadow:0 30px 60px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);transition:all .3s ease}
+        .card.hidden{display:none}
+        .top-bar{display:flex;align-items:center;gap:1rem;margin-bottom:.5rem}
+        .menu-toggle{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);width:44px;height:44px;border-radius:1.2rem;font-size:1.3rem;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .menu-toggle:hover{background:rgba(42,140,255,0.15);border-color:#2a8cff;color:#fff}
+        .header-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.6rem .8rem;flex:1}
+        h1{font-size:1.9rem;font-weight:600;color:#fff;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin:0}
+        .badge-group{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .6rem}
+        .badge{display:inline-flex;align-items:center;gap:.3rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);padding:.25rem .8rem;border-radius:2rem;font-size:.7rem;font-weight:500;letter-spacing:.3px;white-space:nowrap}
+        .badge-country{background:rgba(42,140,255,0.15);border-color:#2a8cff;color:#8bbaff}
+        .badge-vpn{background:rgba(255,165,0,0.15);border-color:#ffa500;color:#ffd700}
+        .badge-vpn.hidden{display:none}
+        .subhead{color:rgba(255,255,255,0.6);font-size:.95rem;margin-bottom:1.8rem;margin-top:.2rem;border-left:3px solid #2a8cff;padding-left:.8rem}
+        .form-group{margin-bottom:1.3rem}
+        label{display:block;font-weight:500;font-size:.9rem;color:rgba(255,255,255,0.75);margin-bottom:.4rem}
+        input,textarea{width:100%;padding:.85rem 1.2rem;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:1.8rem;font-size:1rem;color:#f0f4ff;outline:0;transition:.2s}
+        input:focus,textarea:focus{border-color:#2a8cff;background:rgba(255,255,255,0.12);box-shadow:0 0 0 4px rgba(42,140,255,0.15)}
+        textarea{resize:vertical;min-height:110px;border-radius:1.8rem;line-height:1.5}
+        .btn{width:100%;padding:1rem;background:#2a8cff;border:0;border-radius:3rem;font-weight:600;font-size:1.15rem;color:#fff;cursor:pointer;transition:.2s;box-shadow:0 8px 24px rgba(42,140,255,0.25);display:flex;align-items:center;justify-content:center;gap:8px;margin-top:.3rem}
+        .btn:hover{background:#1f7ae6;transform:scale(1.01);box-shadow:0 12px 32px rgba(42,140,255,0.4)}
+        .btn:active{transform:scale(.97)}
+        .btn:disabled{opacity:.6;pointer-events:none;filter:grayscale(.5)}
+        .status{margin-top:1.3rem;padding:.8rem 1.2rem;border-radius:3rem;font-size:.95rem;text-align:center;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);color:rgba(255,255,255,0.7);min-height:3.8rem;display:flex;align-items:center;justify-content:center;transition:.2s;white-space:pre-wrap;word-break:break-word;line-height:1.5}
+        .status.success{background:rgba(46,213,115,0.15);border-color:#2ed573;color:#7bffb0}
+        .status.error{background:rgba(255,71,87,0.15);border-color:#ff4757;color:#ff8a94}
+        .status.loading{background:rgba(42,140,255,0.1);border-color:#2a8cff;color:#8bbaff}
+        .status.vpn-warning{background:rgba(255,165,0,0.15);border-color:#ffa500;color:#ffd700;flex-direction:column;gap:4px}
+        .footer-note{margin-top:1.2rem;font-size:.8rem;text-align:center;color:rgba(255,255,255,0.2);border-top:1px solid rgba(255,255,255,0.04);padding-top:1.2rem}
+        .vpn-page{padding:.5rem 0}
+        .vpn-page h2{color:#fff;font-size:1.5rem;margin-bottom:.3rem}
+        .vpn-page .vpn-sub{color:rgba(255,255,255,0.5);font-size:.9rem;margin-bottom:1.8rem;border-left:3px solid #ffa500;padding-left:.8rem}
+        .vpn-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:1.5rem;padding:1.3rem 1.5rem;margin-bottom:1rem;transition:.2s}
+        .vpn-card:hover{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.12);transform:translateY(-2px)}
+        .vpn-card .vpn-name{display:flex;align-items:center;gap:.6rem;font-size:1.1rem;font-weight:600;color:#fff;margin-bottom:.3rem}
+        .vpn-card .vpn-name .emoji{font-size:1.3rem}
+        .vpn-card .vpn-desc{color:rgba(255,255,255,0.6);font-size:.9rem;line-height:1.5}
+        .vpn-card .vpn-tag{display:inline-block;margin-top:.5rem;background:rgba(42,140,255,0.12);border:1px solid rgba(42,140,255,0.15);color:#8bbaff;padding:.15rem .8rem;border-radius:1rem;font-size:.7rem;font-weight:500}
+        .vpn-card .vpn-tag.good{background:rgba(46,213,115,0.12);border-color:rgba(46,213,115,0.2);color:#7bffb0}
+        .vpn-card .vpn-tag.fire{background:rgba(255,107,53,0.15);border-color:rgba(255,107,53,0.2);color:#ff8a5c}
+        .sidebar-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:999;opacity:0;pointer-events:none;transition:opacity .3s ease}
+        .sidebar-overlay.active{opacity:1;pointer-events:all}
+        @media(max-width:500px){.card{padding:1.5rem 1.2rem 1.8rem;border-radius:2rem}h1{font-size:1.3rem}.header-row{flex-direction:column;align-items:stretch;gap:.3rem}.badge-group{justify-content:flex-start;gap:.3rem}.badge{font-size:.6rem;padding:.2rem .6rem}.subhead{font-size:.85rem;margin-bottom:1.2rem}input,textarea{padding:.7rem 1rem;font-size:.95rem;border-radius:1.5rem}.btn{font-size:1rem;padding:.85rem}.status{font-size:.85rem;min-height:3.2rem;padding:.6rem 1rem}.sidebar{width:260px;padding:1.5rem 1rem}.menu-item{padding:.7rem .8rem}.menu-item .label{font-size:.85rem}.vpn-card{padding:1rem 1.2rem}.vpn-card .vpn-name{font-size:1rem}}
+        @media(max-width:400px){.card{padding:1.2rem .9rem 1.4rem}h1{font-size:1.1rem}.badge{font-size:.55rem;padding:.15rem .5rem}.sidebar{width:240px;padding:1.2rem .8rem}}
+        @media(min-width:768px){.card{padding:2.5rem 2.5rem 2.8rem}h1{font-size:2.2rem}.sidebar{width:300px}}
     </style>
 </head>
 <body>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <span style="font-size:2rem">⚡</span>
+        <h2>Меню</h2>
+        <button class="close-btn" id="closeSidebar">✕</button>
+    </div>
+    <div class="menu-item active" data-page="main"><span class="icon">💬</span><span class="label">Отправить сообщение</span></div>
+    <div class="menu-item" data-page="vpn"><span class="icon">🔒</span><span class="label">VPN для ТГ</span></div>
+</div>
 
-<div class="card">
-    <h1>
-        <span class="tg-icon" style="display:inline-block; vertical-align:middle; margin-right: 6px;"></span>
-        Личное сообщение
-    </h1>
-    <div class="subhead">Отправьте мне сообщение в Telegram</div>
-
-    <form id="tgForm">
-        <div class="form-group">
-            <label for="userName">Ваше имя и фамилия</label>
-            <input type="text" id="userName" placeholder="Алексей или аноним" maxlength="60" />
+<div class="main-content">
+    <div class="card" id="pageMain">
+        <div class="top-bar">
+            <button class="menu-toggle" id="openSidebar">☰</button>
+            <div class="header-row">
+                <h1><span>💬</span> Отправить сообщение</h1>
+                <div class="badge-group">
+                    <span class="badge badge-country" id="countryBadge">🌍 Загрузка...</span>
+                    <span class="badge badge-vpn hidden" id="vpnBadge">⚠️ VPN</span>
+                </div>
+            </div>
         </div>
+        <div class="subhead">Напишите мне — сообщение придёт в Telegram</div>
+        <form id="messageForm">
+            <div class="form-group">
+                <label for="userName">Ваше имя (опционально)</label>
+                <input type="text" id="userName" placeholder="Алексей или аноним" maxlength="60" />
+            </div>
+            <div class="form-group">
+                <label for="messageText">Сообщение</label>
+                <textarea id="messageText" placeholder="Напишите что-то важное..." required></textarea>
+            </div>
+            <button type="submit" class="btn" id="sendBtn"><span>✉</span> Отправить в Telegram</button>
+        </form>
+        <div id="statusMessage" class="status">💬 Заполните поле и нажмите отправить</div>
+        <div class="footer-note">сообщение придёт в Telegram</div>
+    </div>
 
-        <div class="form-group">
-            <label for="messageText">Сообщение для отправки</label>
-            <textarea id="messageText" placeholder="Напишите что-то важное..." required></textarea>
+    <div class="card hidden" id="pageVpn">
+        <div class="top-bar">
+            <button class="menu-toggle" id="openSidebar2">☰</button>
+            <div class="header-row">
+                <h1><span>🔒</span> VPN для ТГ</h1>
+            </div>
         </div>
-
-        <button type="submit" class="btn" id="sendBtn">
-            <span>✉</span> Отправить в Telegram
-        </button>
-    </form>
-
-    <div id="statusMessage" class="status">💬 Заполните поле и нажмите отправить</div>
-    <div class="footer-note">сообщение придёт в личный кабинет</div>
+        <div class="vpn-page">
+            <h2>⚡ Лучшие VPN для Telegram</h2>
+            <div class="vpn-sub">Обходите блокировки и оставайтесь на связи</div>
+            <div class="vpn-card">
+                <div class="vpn-name"><span class="emoji">🚀</span> SpeedtopVpn</div>
+                <div class="vpn-desc">Быстрый и надёжный VPN с высокоскоростными серверами по всему миру. Отлично подходит для стриминга и обхода блокировок Telegram. Простое подключение в один клик.</div>
+                <span class="vpn-tag good">⭐ Рекомендуем</span>
+            </div>
+            <div class="vpn-card">
+                <div class="vpn-name"><span class="emoji">🌐</span> V2RayTun</div>
+                <div class="vpn-desc">Продвинутое решение на основе протокола V2Ray с технологией туннелирования. Обеспечивает максимальную скрытность и стабильность соединения. Идеально для стран с жёсткой цензурой.</div>
+                <span class="vpn-tag">🛡️ Максимальная защита</span>
+            </div>
+            <div class="vpn-card">
+                <div class="vpn-name"><span class="emoji">🔥</span> Огонь ВПН</div>
+                <div class="vpn-desc">Мощный и бесплатный VPN с неограниченным трафиком. Специально оптимизирован для работы с Telegram и другими мессенджерами. Работает даже там, где другие VPN бессильны. Просто огонь! 🔥</div>
+                <span class="vpn-tag fire">🔥 Огонь!</span>
+            </div>
+            <div style="margin-top:1.5rem;padding:1rem;background:rgba(255,165,0,0.06);border-radius:1.2rem;border:1px solid rgba(255,165,0,0.1)">
+                <p style="color:rgba(255,255,255,0.5);font-size:.8rem;text-align:center">💡 Выберите подходящий VPN и наслаждайтесь свободным доступом к Telegram!</p>
+            </div>
+        </div>
+        <div class="footer-note">обходите блокировки легко</div>
+    </div>
 </div>
 
 <script>
-    (function() {
-        const form = document.getElementById('tgForm');
-        const nameInput = document.getElementById('userName');
-        const textInput = document.getElementById('messageText');
-        const statusDiv = document.getElementById('statusMessage');
-        const sendBtn = document.getElementById('sendBtn');
-
-        // ⚠️ ЗАМЕНИТЕ ЭТОТ ТОКЕН И ID НА СВОИ ⚠️
-        const BOT_TOKEN = '8601852213:AAGRqHQfpqB-nFFg151t8yXai_qGHoaKLJM';   // токен бота
-        const CHAT_ID = 8666634325;        // ваш Telegram ID (можно узнать у @userinfobot)
-
-        // Функция для отображения статуса
-        function setStatus(text, type = '') {
-            statusDiv.textContent = text;
-            statusDiv.className = 'status';
-            if (type) statusDiv.classList.add(type);
-        }
-
-        // Валидация на клиенте
-        function validateForm() {
-            const msg = textInput.value.trim();
-            if (msg.length === 0) {
-                setStatus('❌ Напишите текст сообщения', 'error');
-                textInput.focus();
-                return false;
-            }
-            if (msg.length > 4000) {
-                setStatus('⚠️ Слишком длинное сообщение (макс. 4000 символов)', 'error');
-                return false;
-            }
-            return true;
-        }
-
-        // Отправка через Telegram Bot API
-        async function sendToTelegram(name, message) {
-            // Собираем текст
-            let fullText = `📩 *Новое сообщение с сайта*`;
-            if (name && name.trim().length > 0) {
-                fullText += `\n👤 *Имя:* ${name.trim()}`;
-            } else {
-                fullText += `\n👤 *Аноним*`;
-            }
-            fullText += `\n\n📝 *Текст:*\n${message.trim()}`;
-            fullText += `\n\n🕒 ${new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })}`;
-
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-
-            const payload = {
-                chat_id: CHAT_ID,
-                text: fullText,
-                parse_mode: 'Markdown',
-                disable_web_page_preview: true,
-            };
-
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(payload),
-                });
-
-                const data = await response.json();
-
-                if (!response.ok || !data.ok) {
-                    // Если ошибка от Telegram
-                    const errMsg = data.description || 'Неизвестная ошибка API';
-                    throw new Error(`Telegram API: ${errMsg}`);
-                }
-
-                return { success: true, data };
-            } catch (error) {
-                console.error('Ошибка отправки:', error);
-                return { success: false, error: error.message };
-            }
-        }
-
-        // Обработчик отправки формы
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            // 1. Валидация
-            if (!validateForm()) return;
-
-            // 2. Блокируем кнопку, показываем статус загрузки
-            sendBtn.disabled = true;
-            setStatus('⏳ Отправка в Telegram...', 'loading');
-
-            const name = nameInput.value.trim();
-            const message = textInput.value.trim();
-
-            // 3. Отправка
-            const result = await sendToTelegram(name, message);
-
-            // 4. Обработка результата
-            if (result.success) {
-                setStatus('✅ Сообщение успешно доставлено! Я отвечу в Telegram.', 'success');
-                form.reset(); // очищаем поля
-                // Дополнительно можно скрыть статус через время, но оставим
-            } else {
-                let errorText = result.error || 'Ошибка соединения';
-                // Если ошибка связана с токеном или ID — покажем понятнее
-                if (errorText.includes('401') || errorText.includes('Unauthorized')) {
-                    errorText = 'Неверный токен бота. Проверьте BOT_TOKEN.';
-                } else if (errorText.includes('400') || errorText.includes('chat not found')) {
-                    errorText = 'Неверный CHAT_ID. Убедитесь, что вы указали правильный ID.';
-                }
-                setStatus(`❌ Ошибка: ${errorText}`, 'error');
-            }
-
-            // 5. Разблокируем кнопку
-            sendBtn.disabled = false;
-        });
-
-        // Сброс статуса при вводе в поле (для удобства)
-        textInput.addEventListener('input', () => {
-            if (statusDiv.classList.contains('error') || statusDiv.classList.contains('success')) {
-                setStatus('✏️ Введите сообщение...', '');
-            }
-        });
-        nameInput.addEventListener('input', () => {
-            if (statusDiv.classList.contains('error') || statusDiv.classList.contains('success')) {
-                setStatus('✏️ Введите сообщение...', '');
-            }
-        });
-
-        // Дополнительно: если поле пустое при отправке — подсветка
-        textInput.addEventListener('blur', () => {
-            if (textInput.value.trim().length === 0 && textInput === document.activeElement) {
-                // ничего не делаем, просто напоминание
-            }
-        });
-
-        // Стартовое сообщение (если нужно)
-        setStatus('💬 Напишите сообщение и нажмите отправить', '');
-    })();
+(function(){
+    const s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),ob=document.querySelectorAll('#openSidebar,#openSidebar2'),cl=document.getElementById('closeSidebar'),mi=document.querySelectorAll('.menu-item'),pm=document.getElementById('pageMain'),pv=document.getElementById('pageVpn');
+    function open(){s.classList.add('open');o.classList.add('active');document.body.style.overflow='hidden'}
+    function close(){s.classList.remove('open');o.classList.remove('active');document.body.style.overflow=''}
+    ob.forEach(b=>b.addEventListener('click',open));cl.addEventListener('click',close);o.addEventListener('click',close);
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+    mi.forEach(i=>{i.addEventListener('click',function(){const p=this.dataset.page;mi.forEach(m=>m.classList.remove('active'));this.classList.add('active');pm.classList.add('hidden');pv.classList.add('hidden');if(p==='main')pm.classList.remove('hidden');else if(p==='vpn')pv.classList.remove('hidden');close()})});
+    
+    const f=document.getElementById('messageForm'),ni=document.getElementById('userName'),ti=document.getElementById('messageText'),st=document.getElementById('statusMessage'),sb=document.getElementById('sendBtn'),cb=document.getElementById('countryBadge'),vb=document.getElementById('vpnBadge'),BT='8601852213:AAE93CSxmXDV2AgeCmYzZmGvkq-H38hE4F4',CI='8666634325';
+    let uc='unknown',nv=false,cd=false;
+    async function dr(){try{const r=await fetch('https://ipapi.co/json/');if(!r.ok)throw 0;const d=await r.json();uc=d.country_code||'unknown';cb.textContent=`🌍 ${d.country_name||uc}`;cd=true;nv=['RU','BY','KZ','IR','CN','CU','SY','KP'].includes(uc);nv?(vb.classList.remove('hidden'),sw()):vb.classList.add('hidden')}catch(e){cb.textContent='🌍 Неизвестно';uc='Неизвестно';nv=true;vb.classList.remove('hidden');sw()}}
+    function sw(){setStatus('🛡️ Для отправки через Telegram может потребоваться VPN\n(Telegram API блокируется в вашем регионе)','vpn-warning')}
+    function setStatus(t,p=''){st.textContent=t;st.className='status';if(p)st.classList.add(p)}
+    function vf(){const m=ti.value.trim();if(!m){setStatus('❌ Напишите текст сообщения','error');ti.focus();return false}if(m.length>4000){setStatus('⚠️ Слишком длинное сообщение (макс. 4000 символов)','error');return false}return true}
+    async function s2t(n,m){try{const tr=await fetch(`https://api.telegram.org/bot${BT}/getMe`),td=await tr.json();if(!td.ok)return{success:false,error:'❌ Неверный токен бота. Проверьте BOT_TOKEN в коде.'}}catch(e){return{success:false,error:'❌ Не удалось подключиться к Telegram. Возможно, нужен VPN.'}}
+    const d=new Date(),ds=d.toLocaleDateString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric'}),ts=d.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit',second:'2-digit'}),dt=`${ds} в ${ts}`,un=n?.trim()||'Аноним',um=m?.trim()||'—',txt=`📬 *Новое сообщение*\n\n👤 **Отправитель:** ${un}\n🕒 **Дата и время:** ${dt}\n\n━━━━━━━━━━━━━━━━━━━━━\n\n💬 ${um}\n\n━━━━━━━━━━━━━━━━━━━━━\n\n✉️ *Ответьте на это сообщение*`;
+    try{const r=await fetch(`https://api.telegram.org/bot${BT}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:CI,text:txt,parse_mode:'Markdown',disable_web_page_preview:true})}),d=await r.json();if(!r.ok||!d.ok){if(d.error_code===401)throw new Error('❌ Неверный токен бота. Проверьте BOT_TOKEN.');if(d.error_code===400&&d.description?.includes('chat not found'))throw new Error('❌ Неверный CHAT_ID. Проверьте ID или напишите боту /start.');if(d.error_code===403)throw new Error('❌ Бот заблокирован. Разблокируйте бота в Telegram.');throw new Error(d.description||'Ошибка API Telegram')}return{success:true}}catch(e){console.error('Telegram error:',e);if(e.message.includes('Failed to fetch')||e.message.includes('NetworkError'))return{success:false,error:'❌ Telegram API заблокирован в вашем регионе. Включите VPN.'};return{success:false,error:e.message}}}
+    f.addEventListener('submit',async e=>{e.preventDefault();if(!vf())return;if(nv)setStatus('⚠️ Отправка через Telegram может не работать без VPN. Попробуйте...','loading');sb.disabled=true;setStatus('⏳ Отправка...','loading');const n=ni.value.trim(),m=ti.value.trim(),r=await s2t(n,m);if(r.success){setStatus('✅ Сообщение успешно отправлено!','success');ni.value='';ti.value='';if(nv)setTimeout(sw,3000)}else setStatus(`❌ ${r.error}`,'error');sb.disabled=false});
+    [ti,ni].forEach(f=>{f.addEventListener('input',()=>{if(st.classList.contains('error')||st.classList.contains('success')){nv?sw():setStatus('✏️ Введите сообщение...','')}})});
+    dr();setStatus('💬 Напишите сообщение и нажмите отправить','');
+})();
 </script>
-
 </body>
 </html>
